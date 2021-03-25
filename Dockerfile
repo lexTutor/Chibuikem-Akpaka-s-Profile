@@ -9,7 +9,7 @@ RUN dotnet build
 
 #Publishing
 FROM base AS publish
-WORKDIR /src/KingdomProfile
+WORKDIR ./KingdomProfile
 RUN dotnet publish -c Release -o /src/publish
 
 #Get the runtime into a folder called app
