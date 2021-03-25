@@ -1,17 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
-WORKDIR /src
-COPY *.sln .
-COPY KingdomProfile/*.csproj KingdomProfile/
-RUN dotnet restore KingdomProfile/*.csproj
-COPY . .
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-#Publishing
-FROM base AS publish
-WORKDIR /src/KingdomProfile
-RUN dotnet publish -c Release -o /src/publish
-
-#Get the runtime into a folder called app
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
-#ENTRYPOINT ["dotnet", "KingdomProfile.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet KingdomProfile.dll
+
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /app
+COPY --from=build-env /app/out .
+# ENTRYPOINT ["dotnet", "KingdomProfilePage.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet KingdomProfilePage.dll
