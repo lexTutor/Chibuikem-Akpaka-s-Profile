@@ -3,7 +3,7 @@ name: HostProfilePage
 on:
   pull_request:
     branches:
-      - deploy-develop
+      - master
 
 
 jobs:
