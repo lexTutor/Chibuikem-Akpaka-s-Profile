@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR /src
 COPY *.sln .
-COPY BLOGIT.UserInterface/*.csproj KingdomProfile/
+COPY KingdomProfile/*.csproj KingdomProfile/
 RUN dotnet restore KingdomProfile/*.csproj
 COPY . .
 
