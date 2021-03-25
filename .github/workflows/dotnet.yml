@@ -15,7 +15,7 @@ jobs:
       working-directory: ./FacilityManagement.Services
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        APP_NAME: ${{ 'fma-develop' }}
+        APP_NAME: ${{ 'chibuikemakpaka' }}
       run: |
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         heroku container:push web -a $APP_NAME
