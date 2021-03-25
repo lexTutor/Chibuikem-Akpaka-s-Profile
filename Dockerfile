@@ -16,4 +16,4 @@ RUN dotnet publish -c Release -o /src/publish
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
 WORKDIR /app
 #ENTRYPOINT ["dotnet", "KingdomProfile.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet KingdomProfile.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet KingdomProfile.Views.dll
