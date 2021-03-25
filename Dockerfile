@@ -2,8 +2,8 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR ./KingdomProfile
 
 COPY *.sln .
-COPY KingdomProfile.csproj KingdomProfile/
-RUN dotnet restore KingdomProfile.csproj
+COPY ./KingdomProfileKingdomProfile.csproj KingdomProfile/
+RUN dotnet restore ./KingdomProfile/KingdomProfile.csproj
 COPY . .
 RUN dotnet build
 
