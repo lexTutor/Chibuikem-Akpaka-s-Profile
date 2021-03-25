@@ -1,19 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
-WORKDIR /src
-
-COPY *.sln .
-COPY KingdomProfile/*.csproj KingdomProfile/
-RUN dotnet restore KingdomProfile/*.csproj
-COPY . .
-RUN dotnet build
-
-#Publishing
-FROM base AS publish
-WORKDIR /src/KingdomProfile
-RUN dotnet publish -c Release -o /src/publish
-
-#Get the runtime into a folder called app
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-#ENTRYPOINT ["dotnet", "KingdomProfile.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet KingdomProfile.dll
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+COPY ["KingdomProfile.csproj", ""]
+RUN dotnet restore "./KingdomProfile.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "KingdomProfile.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "KingdomProfile.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "KingdomProfile.dll"]
