@@ -1,9 +1,11 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR /src
+
 COPY *.sln .
 COPY KingdomProfile/*.csproj KingdomProfile/
 RUN dotnet restore KingdomProfile/*.csproj
 COPY . .
+RUN dotnet build
 
 #Publishing
 FROM base AS publish
