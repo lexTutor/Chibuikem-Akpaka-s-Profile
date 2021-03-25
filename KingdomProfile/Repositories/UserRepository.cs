@@ -26,8 +26,9 @@ namespace KingdomProfile.Models
                 Technologies = new List<Technologies>
                 {
                     new Technologies { Skill = "C#", Rating = 85 },
-                    new Technologies { Skill = ".Net Framework", Rating = 80 },
+                    new Technologies { Skill = ".Net Framework/Core", Rating = 80 },
                     new Technologies { Skill = "Web Design [HTML, CSS, JAVASCRIPT, W3.CSS]", Rating = 75 },
+                    new Technologies { Skill = "Relational Database management", Rating = 90 },
                     new Technologies { Skill = "Writing and Research", Rating = 85 }
                 },
 
