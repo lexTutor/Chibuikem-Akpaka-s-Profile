@@ -1,0 +1,144 @@
+﻿
+/*Initializations*/
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", sans-serif
+}
+
+.w3-row-padding img {
+    margin-bottom: 12px
+}
+
+.background_image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100%;
+}
+
+/* Side bar styling*/
+#Sidebar {
+    display: none;
+    padding-top: 150px;
+    right: 0;
+    z-index: 2;
+}
+
+    #Sidebar :first-child {
+        padding: 0 12px;
+    }
+
+#SideBarBtn {
+    animation-name: SideBar;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#SidebarClick {
+    padding: 0 12px;
+}
+
+/* Main page content*/
+#MainPageContent {
+    margin-left: 40%;
+}
+
+    #MainPageContent :nth-child(1) {
+        width: auto;
+        right: 0;
+    }
+
+#home {
+    padding: 128px 16px;
+}
+
+/* Image styling*/
+#photoGrid {
+    margin: 0 -16px;
+}
+
+#photo_size{
+    width: 100px;
+}
+
+#photoGrid_photo {
+    width: 100%;
+}
+
+#Photos_div {
+    display: flex;
+}
+
+#ReputationImage {
+    width: 80px;
+}
+
+/* Skills and expertise*/
+#listOfSkills {
+    margin: 0 10px;
+}
+
+
+#Name {
+    animation-name: Movers;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+}
+
+#expertise {
+    animation-name: Occupation;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+}
+
+/* Animations */
+@keyframes Movers {
+    0% {
+        top: -110%;
+        opacity: 0;
+        visibility: visible;
+    }
+}
+
+@keyframes Occupation {
+    0% {
+        left: 0%;
+        top: auto;
+        opacity: 0.3;
+    }
+
+    50% {
+        left: 0%;
+        top: auto;
+        opacity: 0.65;
+    }
+
+    100% {
+        left: 49%;
+        top: auto;
+        opacity: 1;
+    }
+}
+
+@keyframes SideBar {
+    0% {
+        opacity: 0.4;
+        background-color: black;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    75% {
+        opacity: 0.8;
+        background-color: black;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

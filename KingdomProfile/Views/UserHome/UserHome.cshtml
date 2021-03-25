@@ -1,0 +1,189 @@
+﻿@using System.Web;
+@model UserHomeModel
+
+<script>
+    let addTechnologies = []
+    addProjects = []
+    addRefrees = []
+</script>
+
+
+
+<body style="background-color: azure;" onload="ElementGetter(addTechnologies, addProjects, addRefrees)">
+    @{
+        foreach (var item in Model.Technologies)
+        {
+            var p = (item.Value.ToString() + "%");
+            <script>
+            var innerArray = [];
+            innerArray.push("@item.Key");
+            innerArray.push("@p")
+            addTechnologies.push(innerArray);
+
+            </script>
+        }
+
+        foreach (var item in Model.Projects)
+        {
+            <script>
+            var innerArray = [];
+                innerArray.push("@item.Key");
+                innerArray.push("@item.Value")
+                addProjects.push(innerArray);
+
+            </script>
+        }
+
+        foreach (var item in Model.Refrees)
+        {
+            <script>
+                 var innerArray = [];
+                innerArray.push("@item.Key");
+                innerArray.push("@item.Value[0]");
+                    innerArray.push("@item.Value[1]");
+                innerArray.push("@item.Value[2]");
+                addRefrees.push(innerArray);
+            </script>
+        }
+    }
+
+   <style>
+       .background_image {
+           background-image: url('@Model.Images[0]');
+       }
+   </style>
+    <!-- Sidebar with image -->
+    <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%">
+        <div class="background_image" style="background-image:linear-gradient(#ff0000)"></div>
+    </nav>
+
+    <!-- Hidden Sidebar (reveals when clicked on menu icon)-->
+    <nav class="w3-sidebar w3-black w3-animate-right w3-xlarge" id="Sidebar">
+        <a onclick="closeNav()" class="w3-button w3-white w3-xxlarge w3-display-topright">
+            <i class="fa fa-remove"></i>
+        </a>
+        <div class="w3-bar-block w3-center">
+            <a href="#" class="w3-bar-item w3-button w3-text-black w3-hover-black" onclick="closeNav()"> <i class="fa fa-home"> </i> Home</a>
+            <a href="#about" class="w3-bar-item w3-button w3-text-blue-gray w3-hover-black" onclick="closeNav()"> <i class="fa fa-info-circle"></i>   About</a>
+            <a href="#projects" class="w3-bar-item w3-button w3-text-blue-gray w3-hover-black" onclick="closeNav()"><i class="fa fa-folder"></i> Projects</a>
+            <a href="#portfolio" class="w3-bar-item w3-button w3-text-blue-gray w3-hover-black" onclick="closeNav()"><i class="fa fa-briefcase"></i>  Portfolio</a>
+            <a href="#contact" class="w3-bar-item w3-button w3-text-blue-gray w3-hover-black" onclick="closeNav()"><i class="fa fa-address-book"></i> Contact</a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="w3-main w3-padding-large" id="MainPageContent">
+
+        <!-- Menu icon to open sidebar -->
+        <span class="w3-button w3-top w3-white w3-xxlarge w3-text-grey w3-hover-text-black" id="SideBarBtn" onclick="openNav()"><i class="fa fa-bars"></i></span>
+
+        <!-- Header -->
+        <header class="w3-container w3-center" id="home">
+            <h1 class="w3-jumbo"><b id="Name">@Model.FullName</b></h1>
+            <h5 id="expertise">@Model.CoreExpertise</h5>
+            @*<button class="w3-button w3-light-grey w3-padding-large w3-margin-top">
+                <i class="fa fa-download"></i> Download Resume
+            </button>*@
+        </header>
+
+        <!-- Portfolio Section -->
+        <div class="w3-padding-32 w3-content" id="portfolio">
+            @*<h2 class="w3-text-grey">My Portfolio</h2>
+            <hr class="w3-opacity">*@
+
+            <!-- Grid for photos -->
+            <div class="w3-row-padding" id="photoGrid">
+                <div class="w3-half" id="Photos_div">
+                    <img src="@Model.Images[1]"  style="width:50%">
+                    <img src="@Model.Images[2]"  style="width:50%">
+                </div>
+
+                <div class="w3-half" id="Photos_div">
+                    <img src="@Model.Images[3]" style="width:100%">
+                    <img src="@Model.Images[4]" style="width:100%">
+                </div>
+                <!-- End photo grid -->
+            </div>
+            <!-- End Portfolio Section -->
+        </div>
+
+        <!-- About Section -->
+        <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="about">
+            <h2>About</h2>
+            <hr class="w3-opacity">
+            <p>
+                @Model.UserStory
+            </p>
+            <h3 class="w3-padding-16">My Skills</h3>
+            <ul id="listOfSkills" style="list-style-type: none">
+            </ul>
+            <br>
+
+            @*<button class="w3-button w3-light-grey w3-padding-large w3-section">
+                <i class="fa fa-download"></i> Download Resume
+            </button>*@
+
+            <div id="projects">
+
+                <!--Projects-->
+                <h3>
+                    Projects
+                </h3>
+                <table class="w3-table-all" id="ProjectTable">
+                    <tr class="w3-hover-dark-grey">
+                        <th> Project </th>
+                        <th>
+                            <i class="fa fa-github"></i>
+                        </th>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!-- Testimonials -->
+            <div id="Testimonials">
+                <h3 class="w3-padding-24">My Reputation</h3>
+            </div>
+
+
+            <!-- Contact Section -->
+            <div class="w3-padding-32 w3-content w3-text-grey" id="contact" style="margin-bottom:64px">
+                <h2>Contact Me</h2>
+                <hr class="w3-opacity">
+
+                <div class="w3-section">
+                    <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>@Model.Address</p>
+                    <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>@Model.PhoneNumber</p>
+                    <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> @Model.EmailAddress</p>
+                </div>
+
+                <!-- Image of location/map -->
+
+                <p>Lets get in touch. Send me a message:</p>
+                <form action="/action_page.php" target="_blank">
+                    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+                    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
+                    <p>
+                        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+                            <i class="fa fa-paper-plane"></i> SEND MESSAGE
+                        </button>
+                    </p>
+                </form>
+                <!-- End Contact Section -->
+            </div>
+
+            <!-- Footer -->
+            <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin:-24px">
+                <a href="@Model.SocialMediaHandles[0]">  <i class="fa fa-linkedin w3-hover-opacity"></i></a>
+                <a href="@Model.SocialMediaHandles[1]"> <i class="fa fa-twitter w3-hover-opacity"></i></a>
+                <a href="@Model.SocialMediaHandles[2]"> <i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+                <p class="w3-medium">Copyright 2021 Profile Page `Chibuikem Rowland Akpaka`</p>
+                <!-- End footer -->
+            </footer>
+
+            <!-- END PAGE CONTENT -->
+        </div>
+    </div>
+</body>
