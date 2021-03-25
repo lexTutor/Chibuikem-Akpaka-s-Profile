@@ -12,7 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and deploy the Docker image
-      working-directory: ./FacilityManagement.Services
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         APP_NAME: ${{ 'chibuikemakpaka' }}
